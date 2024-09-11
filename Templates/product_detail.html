@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="product-detail" style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center;">
+    <h1 style="font-size: 2em; color: #333; margin-bottom: 20px;">Product Detail</h1>
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; max-width: 300px; border-radius: 8px; margin-bottom: 20px;">
+    <h1 style="font-size: 1.5em; color: #333; margin-bottom: 10px;">{{ product.name }}</h1>
+    <p style="font-size: 1em; color: #777; margin-bottom: 20px;">{{ product.description }}</p>
+    <p style="font-size: 1.2em; color: #000; font-weight: bold; margin-bottom: 25px;">Price: ${{ product.price }}</p>
+
+     <form method="post" action="{% url 'add_to_cart' product.pk %}">
+              {% csrf_token %}
+              <button type="submit" style="padding: 10px 20px; background-color: #007BFF; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+                  Add to Cart
+              </button>
+     </form>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: left;">
+    {% for product in Products %}
+    <div class="product" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; width: 220px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.2s;">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 200px; height: 200px; border-radius: 8px;">
+        <h2 style="font-size: 1.2em; color: #333; margin: 10px 0;">{{ product.name }}</h2>
+        <p style="font-size: 0.9em; color: #777; margin-bottom: 10px;">{{ product.description }}</p>
+        <p style="font-size: 1em; color: #000; font-weight: bold; margin-bottom: 15px;">Price: ${{ product.price }}</p>
+        <form method="post" action="{% url 'add_to_cart' product.pk %}">
+              {% csrf_token %}
+              <button type="submit" style="padding: 10px 20px; margin-bottom: 15px; background-color: #007BFF; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+                  Add to Cart
+              </button>
+        </form>
+        <a href="{% url 'product_detail' product.id %}" style="display: inline-block; padding: 8px 15px; background-color: #28a745; color: #fff; text-decoration: none; border-radius: 5px;">View Details</a>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

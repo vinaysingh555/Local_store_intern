@@ -1,0 +1,43 @@
+{% block content %}
+    <div style="padding: 40px; background-color: #f4f4f4; max-width: 700px; margin: 50px auto; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);">
+        <h1 style="font-family: 'Segoe UI', sans-serif; font-size: 2.5em; color: #222; text-align: center; margin-bottom: 25px;">Order Confirmation</h1>
+
+        {% if cart_items %}
+            <ul style="list-style-type: none; padding: 0;">
+                {% for item in cart_items %}
+                    <li style="display: flex; align-items: center; background-color: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);">
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="width: 90px; height: 90px; object-fit: cover; border-radius: 10px; margin-right: 20px;">
+                        <div style="flex-grow: 1;">
+                            <h2 style="font-size: 1.5em; color: #333; margin-bottom: 5px;">{{ item.product.name }}</h2>
+                            <p style="font-size: 1.1em; color: #888;">Quantity: {{ item.quantity }}</p>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <p style="font-size: 1.7em; font-weight: bold; color: #111;">Total: ${{ total }}</p>
+
+                <!-- Razorpay Button -->
+                <form method="post" id="razorpay-form" style="margin-top: 20px;">
+                    <script src="https://checkout.razorpay.com/v1/checkout.js"
+                            data-key="{{ razorpay_key_id }}"
+                            data-amount="{{ total_price|floatformat:0 }}"
+                            data-currency="{{ currency }}"
+                            data-order_id="{{ razorpay_order_id }}"
+                            data-buttontext="Proceed to Payment"
+                            data-name="Your Store Name"
+                            data-description="Order Payment"
+                            data-image="https://example.com/your_logo.jpg"
+                            data-prefill.name="{{ request.user.username }}"
+                            data-prefill.email="{{ request.user.email }}"
+                            data-theme.color="#1E90FF">
+                    </script>
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                </form>
+            </div>
+        {% else %}
+            <p style="font-size: 1.3em; color: #555; text-align: center; margin-top: 40px;">Your cart is empty.</p>
+        {% endif %}
+    </div>
+{% endblock %}

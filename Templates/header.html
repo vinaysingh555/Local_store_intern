@@ -1,0 +1,59 @@
+{% load static %}
+
+<header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background-color: #232f3e; color: #ffffff;">
+    <!-- Logo -->
+    <div style="display: flex; align-items: center; background-color: #ffffff; padding: 5px; border-radius: 50%;">
+        <a href="{% url 'product_list' %}" style="text-decoration: none;">
+            <img src="{% static 'logo.png' %}" alt="My Store Logo" style="height: 50px; width: 50px; border-radius: 50%; object-fit: cover; margin: 0px 20px;">
+        </a>
+    </div>
+
+    <!-- Search Bar -->
+    <div style="flex: 1; margin: 0 20px;">
+        <input type="text" placeholder="Search for products" style="width: 30%; padding: 10px; border-radius: 5px; border: none; font-size: 1em;">
+    </div>
+
+    <!-- Account and Cart -->
+    <div style="display: flex; align-items: center; gap: 15px;">
+        {% if user.is_authenticated %}
+            <!-- Account Dropdown -->
+            <div style="position: relative;">
+                <button style="background-color: transparent; border: none; color: #ffffff; cursor: pointer; font-size: 1em;">
+                    Hello, {{ user.first_name }} ▼
+                </button>
+                <div style="position: absolute; top: 100%; left: 0; background-color: #F8F8FF; color: #000000; padding: 10px; border-radius: 5px; display: none;">
+                    <a href="{% url 'user_profile' %}" style="display: block; padding: 10px; color: #000000; text-decoration: none;">
+                        <i class="fas fa-user-alt" style="margin-right: 8px;"></i> Profile
+                    </a>
+
+                    <a href="{% url 'preorder-list' %}" style="display: block; padding: 10px; color: #000000; text-decoration: none;">
+                        <i style="margin-right: 8px;" class='bx bxs-shopping-bags'></i> Orders
+                    </a>
+
+                    <a href="{% url 'cart' %}" style="display: block; padding: 10px; color: #000000; text-decoration: none;">
+                        <i class='bx bxs-cart' style="margin-right: 8px;"></i> My Cart
+                    </a>
+
+                    <a href="{% url 'logout' %}" style="display: block; padding: 10px; color: #000000; text-decoration: none;">
+                        <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i> Logout
+                    </a>
+                </div>
+            </div>
+            <a href="{% url 'preorder-list' %}" style="display: block; padding: 10px; color: #000000; text-decoration: none;">
+                <i style="color: white; font-size: 24px;" class='bx bxs-shopping-bags'></i>
+            </a>
+            <a href="{% url 'cart' %}" style="display: block; padding: 10px; color: #000000; text-decoration: none;">
+                <i style="color: white; font-size: 24px;" class='bx bxs-cart'></i>
+            </a>
+            <!-- Add Product Button -->
+            <a href="{% url 'create_product' %}" style="padding: 10px 20px; background-color: #007bff; color: #ffffff; border: none; border-radius: 5px; text-decoration: none; font-size: 1em;">
+                Add Product
+            </a>
+        {% else %}
+            <!-- Login Button -->
+            <a href="{% url 'login' %}" style="padding: 10px 20px; background-color: #28a745; color: #ffffff; border: none; border-radius: 5px; text-decoration: none; font-size: 1em;">
+                Login
+            </a>
+        {% endif %}
+    </div>
+</header>

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="max-width: 600px; margin: 40px auto; background-color: #f9f9f9; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+    <div style="display: flex; align-items: center; border-bottom: 1px solid #ddd; padding-bottom: 20px;">
+        <img src="{{ user.image.url }}" alt="Profile Picture" style="border-radius: 50%; width: 80px; height: 80px; object-fit: cover; margin-right: 20px;">
+        <div>
+            <h1 style="margin: 0; font-size: 22px; font-weight: 600; color: #333;">{{ user.first_name }} {{ user.last_name }}</h1>
+            <p style="margin: 5px 0 0 0; font-size: 16px; color: #666;">{{ user.email }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
